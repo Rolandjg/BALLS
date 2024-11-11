@@ -14,92 +14,48 @@ public class Solver
     public void Update(HashSet<Verlet> verlets, float dt)
     {
         int substeps = 8;
-
         var hash = CreateSpatialHash(verlets);
         
         for (int i = 0; i < substeps; i++)
         {
             Gravity(verlets);
             Constrain(verlets);
+
+            // Compute spatial hash once every 3 substeps
+            if (i % 3 == 1)
+            {
+                hash = CreateSpatialHash(verlets);
+            }
+
+            var tasks = new Task[23];
+            tasks[0] = Task.Run(() => CollisionCells(verlets, 1, 1, 22, 17, hash));
+            tasks[1] = Task.Run(() => CollisionCells(verlets, 24, 1, 24, 17, hash));
+            tasks[2] = Task.Run(() => CollisionCells(verlets, 49, 1, 24, 17, hash));
+            tasks[3] = Task.Run(() => CollisionCells(verlets, 74, 1, 25, 17, hash));
             
-            Thread u1 = new Thread(() => CollisionCells(verlets, 1, 1, 22, 17, hash));
-            Thread u2 = new Thread(() => CollisionCells(verlets, 24, 1, 24, 17, hash));
-            Thread u3 = new Thread(() => CollisionCells(verlets, 49, 1, 24, 17, hash));
-            Thread u4 = new Thread(() => CollisionCells(verlets, 74, 1, 25, 17, hash));
+            tasks[4] = Task.Run(() => CollisionCells(verlets, 1, 19, 22, 17, hash));
+            tasks[5] = Task.Run(() => CollisionCells(verlets, 24, 19, 24, 17, hash));
+            tasks[6] = Task.Run(() => CollisionCells(verlets, 49, 19, 24, 17, hash));
+            tasks[7] = Task.Run(() => CollisionCells(verlets, 74, 19, 25, 17, hash));
+            tasks[8] = Task.Run(() => CollisionCells(verlets, 1, 37, 22, 17, hash));
+            tasks[9] = Task.Run(() => CollisionCells(verlets, 24, 37, 24, 17, hash));
+            tasks[10] = Task.Run(() => CollisionCells(verlets, 49, 37, 24, 17, hash));
+            tasks[11] = Task.Run(() => CollisionCells(verlets, 74, 37, 25, 17, hash));
+
+            tasks[12] = Task.Run(() => CollisionCells(verlets, 13, 55, 11, 10, hash));
+            tasks[13] = Task.Run(() => CollisionCells(verlets, 25, 55, 11, 10, hash));
+            tasks[14] = Task.Run(() => CollisionCells(verlets, 37, 55, 11, 10, hash));
+            tasks[15] = Task.Run(() => CollisionCells(verlets, 49, 55, 11, 10, hash));
+            tasks[16] = Task.Run(() => CollisionCells(verlets, 61, 55, 12, 10, hash));
+            tasks[17] = Task.Run(() => CollisionCells(verlets, 74, 55, 11, 10, hash));
             
-            Thread m1 = new Thread(() => CollisionCells(verlets, 1, 19, 22, 17, hash));
-            Thread m2 = new Thread(() => CollisionCells(verlets, 24, 19, 24, 17, hash));
-            Thread m3 = new Thread(() => CollisionCells(verlets, 49, 19, 24, 17, hash));
-            Thread m4 = new Thread(() => CollisionCells(verlets, 74, 19, 25, 17, hash));
-            Thread m5 = new Thread(() => CollisionCells(verlets, 1, 37, 22, 17, hash));
-            Thread m6 = new Thread(() => CollisionCells(verlets, 24, 37, 24, 17, hash));
-            Thread m7 = new Thread(() => CollisionCells(verlets, 49, 37, 24, 17, hash));
-            Thread m8 = new Thread(() => CollisionCells(verlets, 74, 37, 25, 17, hash));
+            tasks[18] = Task.Run(() => CollisionCells(verlets, 25, 66, 11, 9, hash));
+            tasks[19] = Task.Run(() => CollisionCells(verlets, 37, 66, 11, 9, hash));
+            tasks[20] = Task.Run(() => CollisionCells(verlets, 49, 66, 11, 9, hash));
+            tasks[21] = Task.Run(() => CollisionCells(verlets, 61, 66, 11, 9, hash));
+            tasks[22] = Task.Run(() => CollisionCells(verlets, 73, 66, 11, 9, hash));
             
-            Thread b2 = new Thread(() => CollisionCells(verlets, 13, 55, 11, 10, hash));
-            Thread b3 = new Thread(() => CollisionCells(verlets, 25, 55, 11, 10, hash));
-            Thread b4 = new Thread(() => CollisionCells(verlets, 37, 55, 11, 10, hash));
-            Thread b5 = new Thread(() => CollisionCells(verlets, 49, 55, 11, 10, hash));
-            Thread b6 = new Thread(() => CollisionCells(verlets, 61, 55, 12, 10, hash));
-            Thread b7 = new Thread(() => CollisionCells(verlets, 74, 55, 11, 10, hash));
-            
-            Thread b8 = new Thread(() => CollisionCells(verlets, 25, 66, 11, 9, hash));
-            Thread b9 = new Thread(() => CollisionCells(verlets, 37, 66, 11, 9, hash));
-            Thread b10 = new Thread(() => CollisionCells(verlets, 49, 66, 11, 9, hash));
-            Thread b11 = new Thread(() => CollisionCells(verlets, 61, 66, 11, 9, hash));
-            Thread b12 = new Thread(() => CollisionCells(verlets, 73, 66, 11, 9, hash));
-            
-            u1.Start();
-            u2.Start();
-            u3.Start();
-            u4.Start();
-            
-            m1.Start();
-            m2.Start();
-            m3.Start();
-            m4.Start();
-            m5.Start();
-            m6.Start();
-            m7.Start();
-            m8.Start();
-            
-            b2.Start();
-            b3.Start();
-            b4.Start();
-            b5.Start();
-            b6.Start();
-            b7.Start();
-            b8.Start();
-            b9.Start();
-            b10.Start();
-            b11.Start();
-            b12.Start();
-            
-            u1.Join();
-            u2.Join();
-            u3.Join();
-            u4.Join();
-            
-            m1.Join();
-            m2.Join();
-            m3.Join();
-            m4.Join();
-            m5.Join();
-            m6.Join();
-            m7.Join();
-            m8.Join();
-            
-            b2.Join();
-            b3.Join();
-            b4.Join();
-            b5.Join();
-            b6.Join();
-            b7.Join();
-            b8.Join();
-            b9.Join();
-            b10.Join();
-            b11.Join();
-            b12.Join();
+            Task.WaitAll(tasks);
             
             UpdatePositions(verlets, dt/substeps);
         }

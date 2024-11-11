@@ -57,7 +57,7 @@ class Program
 
                 Color color = new Color(frameNumber % 255, 0, 255, 255);
                 
-                Verlet verlet = new Verlet(new Vector2(mouseX, mouseY), new Vector2(0.5f, 0), 3, color);
+                Verlet verlet = new Verlet(new Vector2(mouseX, mouseY), new Vector2(0.5f, 0), 4, color);
                 verlets.Add(verlet);
             }
         }
@@ -79,7 +79,7 @@ class Program
         {
             foreach (Vector2 faucet in faucets.Keys)
             {
-                Verlet verlet = new Verlet(faucet, new Vector2(0,0.5f), 3, faucets[faucet]);
+                Verlet verlet = new Verlet(faucet, new Vector2(0,0.5f), 4, new Color(faucets[faucet].R, frameNumber % 255, faucets[faucet].B, 255));
                 verlets.Add(verlet);
             }
         }
