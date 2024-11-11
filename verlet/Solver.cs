@@ -165,10 +165,9 @@ public class Solver
     
     private void CollisionCells(IEnumerable<Verlet> verlets, int gridX, int gridY, int gridWidth, int gridHeight, Dictionary<(int, int), List<Verlet>> hash)
     {
-        
-        
-        Raylib.DrawRectangle(gridX*8, gridY*8, gridWidth*8, gridHeight*8, Color.Orange);
-        Raylib.DrawRectangle(gridX*8+1, gridY*8+1, gridWidth*8-2, gridHeight*8-2, Color.Black);
+        // Draw thread bounds   
+        //Raylib.DrawRectangle(gridX*8, gridY*8, gridWidth*8, gridHeight*8, Color.Orange);
+        //Raylib.DrawRectangle(gridX*8+1, gridY*8+1, gridWidth*8-2, gridHeight*8-2, Color.Black);
         
         foreach (var cell in hash)
         {

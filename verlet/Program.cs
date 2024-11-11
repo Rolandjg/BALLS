@@ -29,8 +29,8 @@ class Program
 
 
             // Show Bounds
-            Raylib.DrawCircle(WIDTH / 2, HEIGHT / 2, 300, Color.White);
-            Raylib.DrawCircle(WIDTH / 2, HEIGHT / 2, 299, Color.Black);
+            //Raylib.DrawCircle(WIDTH / 2, HEIGHT / 2, 300, Color.White);
+            //Raylib.DrawCircle(WIDTH / 2, HEIGHT / 2, 299, Color.Black);
 
 
             Solve(solver, verlets);
