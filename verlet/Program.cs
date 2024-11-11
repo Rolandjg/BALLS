@@ -79,7 +79,7 @@ class Program
         {
             foreach (Vector2 faucet in faucets.Keys)
             {
-                Verlet verlet = new Verlet(faucet, new Vector2(1f,-0.5f), 3, faucets[faucet]);
+                Verlet verlet = new Verlet(faucet, new Vector2(0,0.5f), 3, faucets[faucet]);
                 verlets.Add(verlet);
             }
         }

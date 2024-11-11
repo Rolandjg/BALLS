@@ -215,6 +215,8 @@ public class Solver
         Vector2 collisionAxis = verlet1.currentPosition - verlet2.currentPosition;
         float distance = collisionAxis.Length();
         Vector2 n = collisionAxis / distance;
+        
+        // Allow for balls to clip a little bit
         float delta = verlet1.radius + verlet2.radius - distance;
         verlet1.currentPosition += delta * 0.5f * n;
         verlet2.currentPosition -= delta * 0.5f * n;
