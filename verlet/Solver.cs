@@ -7,7 +7,7 @@ namespace verlet;
 
 public class Solver
 {
-    private Vector2 GRAVITY = new Vector2(0, 1000.0f);
+    private Vector2 GRAVITY = new Vector2(0, 1500.0f);
     private int GRID_WIDTH = 100;
     private int GRID_HEIGHT = 75;
     
@@ -21,11 +21,86 @@ public class Solver
         {
             Gravity(verlets);
             Constrain(verlets);
-
-            Thread q1 = new Thread(() => CollisionCells(verlets, 1, 1, 98, 73, hash));
             
-            q1.Start();
-            q1.Join();
+            Thread u1 = new Thread(() => CollisionCells(verlets, 1, 1, 22, 17, hash));
+            Thread u2 = new Thread(() => CollisionCells(verlets, 24, 1, 24, 17, hash));
+            Thread u3 = new Thread(() => CollisionCells(verlets, 49, 1, 24, 17, hash));
+            Thread u4 = new Thread(() => CollisionCells(verlets, 74, 1, 25, 17, hash));
+            
+            Thread m1 = new Thread(() => CollisionCells(verlets, 1, 19, 22, 17, hash));
+            Thread m2 = new Thread(() => CollisionCells(verlets, 24, 19, 24, 17, hash));
+            Thread m3 = new Thread(() => CollisionCells(verlets, 49, 19, 24, 17, hash));
+            Thread m4 = new Thread(() => CollisionCells(verlets, 74, 19, 25, 17, hash));
+            Thread m5 = new Thread(() => CollisionCells(verlets, 1, 37, 22, 17, hash));
+            Thread m6 = new Thread(() => CollisionCells(verlets, 24, 37, 24, 17, hash));
+            Thread m7 = new Thread(() => CollisionCells(verlets, 49, 37, 24, 17, hash));
+            Thread m8 = new Thread(() => CollisionCells(verlets, 74, 37, 25, 17, hash));
+            
+            Thread b2 = new Thread(() => CollisionCells(verlets, 13, 55, 11, 10, hash));
+            Thread b3 = new Thread(() => CollisionCells(verlets, 25, 55, 11, 10, hash));
+            Thread b4 = new Thread(() => CollisionCells(verlets, 37, 55, 11, 10, hash));
+            Thread b5 = new Thread(() => CollisionCells(verlets, 49, 55, 11, 10, hash));
+            Thread b6 = new Thread(() => CollisionCells(verlets, 61, 55, 12, 10, hash));
+            Thread b7 = new Thread(() => CollisionCells(verlets, 74, 55, 11, 10, hash));
+            
+            Thread b8 = new Thread(() => CollisionCells(verlets, 25, 66, 11, 9, hash));
+            Thread b9 = new Thread(() => CollisionCells(verlets, 37, 66, 11, 9, hash));
+            Thread b10 = new Thread(() => CollisionCells(verlets, 49, 66, 11, 9, hash));
+            Thread b11 = new Thread(() => CollisionCells(verlets, 61, 66, 11, 9, hash));
+            Thread b12 = new Thread(() => CollisionCells(verlets, 73, 66, 11, 9, hash));
+            
+            u1.Start();
+            u2.Start();
+            u3.Start();
+            u4.Start();
+            
+            m1.Start();
+            m2.Start();
+            m3.Start();
+            m4.Start();
+            m5.Start();
+            m6.Start();
+            m7.Start();
+            m8.Start();
+            
+            b2.Start();
+            b3.Start();
+            b4.Start();
+            b5.Start();
+            b6.Start();
+            b7.Start();
+            b8.Start();
+            b9.Start();
+            b10.Start();
+            b11.Start();
+            b12.Start();
+            
+            u1.Join();
+            u2.Join();
+            u3.Join();
+            u4.Join();
+            
+            m1.Join();
+            m2.Join();
+            m3.Join();
+            m4.Join();
+            m5.Join();
+            m6.Join();
+            m7.Join();
+            m8.Join();
+            
+            b2.Join();
+            b3.Join();
+            b4.Join();
+            b5.Join();
+            b6.Join();
+            b7.Join();
+            b8.Join();
+            b9.Join();
+            b10.Join();
+            b11.Join();
+            b12.Join();
+            
             UpdatePositions(verlets, dt/substeps);
         }
     }
@@ -49,21 +124,6 @@ public class Solver
         }
 
         return hash;
-    }
-    
-    private HashSet<Thread> CreateThreads(HashSet<Verlet> verlets, Dictionary<(int, int), List<Verlet>> hash)
-    {
-        HashSet<Thread> threads = new();
-        
-        for (int x = 0; x < GRID_WIDTH/8; x+=4)
-        {
-            for (int y = 0; y < GRID_HEIGHT/8; y+=4)
-            {
-                threads.Add(new Thread(() => CollisionCells(verlets, x+1, y+1, x+2, y+2, hash)));
-            }
-        }
-
-        return threads;
     }
     
     private void UpdatePositions(IEnumerable<Verlet> verlets, float dt)
@@ -133,7 +193,7 @@ public class Solver
                                 {
                                     if (verlet1 != verlet2 && IsColliding(verlet1, verlet2))
                                     {
-                                        lock(verlets){Collide(verlet1, verlet2);}
+                                        Collide(verlet1, verlet2);
                                     }
                                 }
                             }
