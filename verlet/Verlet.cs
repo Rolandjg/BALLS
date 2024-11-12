@@ -10,6 +10,7 @@ public class Verlet
     public Vector2 acceleration {get; set;}
     public int radius {get; set;}
     public Color color {get; set;}
+    public Vector2 velocity {get; set;}
     private Vector2 velocityOld;
     
     public Verlet(Vector2 startPosition, Vector2 initialVelocity, int radius, Color color)
@@ -25,11 +26,10 @@ public class Verlet
 
     public void updatePostion(float dt)
     {
-        Vector2 velocity = (currentPosition - previousPosition);
+        velocity = (currentPosition - previousPosition);
         // Max velocity
         if (velocity.Length() > 4)
         {
-            Console.WriteLine("Ball exceeded max velocity");
             velocity = velocityOld;
         }
         

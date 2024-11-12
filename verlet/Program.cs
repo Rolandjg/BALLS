@@ -1,4 +1,4 @@
-﻿﻿using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Numerics;
 using System.Xml.Schema;
 using Raylib_cs;
@@ -40,6 +40,14 @@ class Program
             //Raylib.DrawCircle(WIDTH / 2, HEIGHT / 2, 299, Color.Black);
 
 
+            if (frameNumber % 4 == 0)
+            {
+                Color color = Raylib.ColorFromHSV(frameNumber / 8 % 360, 1, 1);
+                
+                Verlet verlet = new Verlet(new Vector2(401, 50), new Vector2(0f, 0.5f), 3, color);
+                verlets.Add(verlet);
+            }
+            
             Solve(solver, verlets);
             LeftMouseLogic(verlets, frameNumber);
             RightMouseLogic(verlets, faucets, frameNumber);
@@ -96,7 +104,7 @@ class Program
         {
             foreach (Vector2 faucet in faucets.Keys)
             {
-                Verlet verlet = new Verlet(faucet, new Vector2(0,-4f), 3, new Color(faucets[faucet].R, frameNumber/9 % 255, faucets[faucet].B, 255));
+                Verlet verlet = new Verlet(faucet, new Vector2(0,1f), 4, new Color(faucets[faucet].R, frameNumber/9 % 255, faucets[faucet].B, 255));
                 verlets.Add(verlet);
             }
         }
@@ -114,8 +122,8 @@ class Program
             
         foreach (Verlet verlet in verlets)
         {
-            //Color color = Raylib.ColorFromHSV((verlet.velocity.Length() * 90)+180, 1, 1); // Velocity coloring
-            //Raylib.DrawCircle(verlet.getX, verlet.getY, verlet.radius, color); // Draw circles by velocity
+            //Color velocity = Raylib.ColorFromHSV((verlet.velocity.Length() * 90)+180, 1, 1); // Velocity coloring
+            //Raylib.DrawCircle(verlet.getX, verlet.getY, verlet.radius, velocity); // Draw circles by velocity
             Raylib.DrawCircle(verlet.getX, verlet.getY, verlet.radius, verlet.color);
         }
     }

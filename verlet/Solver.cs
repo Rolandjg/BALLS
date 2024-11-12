@@ -27,33 +27,18 @@ public class Solver
                 hash = CreateSpatialHash(verlets);
             }
 
-            var tasks = new Task[23];
-            tasks[0] = Task.Run(() => CollisionCells(verlets, 1, 1, 22, 17, hash));
-            tasks[1] = Task.Run(() => CollisionCells(verlets, 24, 1, 24, 17, hash));
-            tasks[2] = Task.Run(() => CollisionCells(verlets, 49, 1, 24, 17, hash));
-            tasks[3] = Task.Run(() => CollisionCells(verlets, 74, 1, 25, 17, hash));
-            
-            tasks[4] = Task.Run(() => CollisionCells(verlets, 1, 19, 22, 17, hash));
-            tasks[5] = Task.Run(() => CollisionCells(verlets, 24, 19, 24, 17, hash));
-            tasks[6] = Task.Run(() => CollisionCells(verlets, 49, 19, 24, 17, hash));
-            tasks[7] = Task.Run(() => CollisionCells(verlets, 74, 19, 25, 17, hash));
-            tasks[8] = Task.Run(() => CollisionCells(verlets, 1, 37, 22, 17, hash));
-            tasks[9] = Task.Run(() => CollisionCells(verlets, 24, 37, 24, 17, hash));
-            tasks[10] = Task.Run(() => CollisionCells(verlets, 49, 37, 24, 17, hash));
-            tasks[11] = Task.Run(() => CollisionCells(verlets, 74, 37, 25, 17, hash));
+            var tasks = new Task[10];
+            tasks[0] = Task.Run(() => CollisionCells(verlets, 1, 1, 9, 74, hash));
+            tasks[1] = Task.Run(() => CollisionCells(verlets, 10, 1, 9, 74, hash));
+            tasks[2] = Task.Run(() => CollisionCells(verlets, 20, 1, 9, 74, hash));
+            tasks[3] = Task.Run(() => CollisionCells(verlets, 30, 1, 9, 74, hash));
+            tasks[4] = Task.Run(() => CollisionCells(verlets, 40, 1, 9, 74, hash));
+            tasks[5] = Task.Run(() => CollisionCells(verlets, 50, 1, 9, 74, hash));
+            tasks[6] = Task.Run(() => CollisionCells(verlets, 60, 1, 9, 74, hash));
+            tasks[7] = Task.Run(() => CollisionCells(verlets, 70, 1, 9, 74, hash));
+            tasks[8] = Task.Run(() => CollisionCells(verlets, 80, 1, 9, 74, hash));
+            tasks[9] = Task.Run(() => CollisionCells(verlets, 90, 1, 9, 74, hash));
 
-            tasks[12] = Task.Run(() => CollisionCells(verlets, 13, 55, 11, 10, hash));
-            tasks[13] = Task.Run(() => CollisionCells(verlets, 25, 55, 11, 10, hash));
-            tasks[14] = Task.Run(() => CollisionCells(verlets, 37, 55, 11, 10, hash));
-            tasks[15] = Task.Run(() => CollisionCells(verlets, 49, 55, 11, 10, hash));
-            tasks[16] = Task.Run(() => CollisionCells(verlets, 61, 55, 12, 10, hash));
-            tasks[17] = Task.Run(() => CollisionCells(verlets, 74, 55, 11, 10, hash));
-            
-            tasks[18] = Task.Run(() => CollisionCells(verlets, 25, 66, 11, 9, hash));
-            tasks[19] = Task.Run(() => CollisionCells(verlets, 37, 66, 11, 9, hash));
-            tasks[20] = Task.Run(() => CollisionCells(verlets, 49, 66, 11, 9, hash));
-            tasks[21] = Task.Run(() => CollisionCells(verlets, 61, 66, 11, 9, hash));
-            tasks[22] = Task.Run(() => CollisionCells(verlets, 73, 66, 11, 9, hash));
             
             Task.WaitAll(tasks);
             
