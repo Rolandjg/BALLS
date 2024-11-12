@@ -126,19 +126,19 @@
     ]
   },
   "packageFolders": {
-    "/home/laptop/.nuget/packages/": {}
+    "/home/roland/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/laptop/RiderProjects/BALL/verlet/verlet.csproj",
+      "projectUniqueName": "/home/roland/RiderProjects/verlet/verlet/verlet.csproj",
       "projectName": "verlet",
-      "projectPath": "/home/laptop/RiderProjects/BALL/verlet/verlet.csproj",
-      "packagesPath": "/home/laptop/.nuget/packages/",
-      "outputPath": "/home/laptop/RiderProjects/BALL/verlet/obj/",
+      "projectPath": "/home/roland/RiderProjects/verlet/verlet/verlet.csproj",
+      "packagesPath": "/home/roland/.nuget/packages/",
+      "outputPath": "/home/roland/RiderProjects/verlet/verlet/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/laptop/.nuget/NuGet/NuGet.Config"
+        "/home/roland/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -156,11 +156,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -188,7 +183,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/laptop/.dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.110/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

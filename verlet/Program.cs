@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿﻿using System.Diagnostics;
 using System.Numerics;
 using System.Xml.Schema;
 using Raylib_cs;
@@ -6,15 +6,22 @@ using verlet;
 
 class Program
 {
+    
+    /// <summary>
+    ///     Main method for the verlet simulation, initialized as 800x600
+    /// </summary>
     static void Main()
     {
         int WIDTH = 800;
         int HEIGHT = 600;
         
         Raylib.InitWindow(WIDTH, HEIGHT, "Verlet");
-        Raylib.SetTargetFPS(60);            
+        Raylib.SetTargetFPS(60);        
 
+        // Set of verlets
         HashSet<Verlet> verlets = new();
+        
+        // Set of faucets
         Dictionary<Vector2, Color> faucets = new();
 
         Solver solver = new();
@@ -36,9 +43,8 @@ class Program
             Solve(solver, verlets);
             LeftMouseLogic(verlets, frameNumber);
             RightMouseLogic(verlets, faucets, frameNumber);
-                
-
-            Raylib.DrawFPS(20, 20);
+            
+            Raylib.DrawFPS(20, 20); // Display FPS
 
             Raylib.EndDrawing();
         }
@@ -46,6 +52,11 @@ class Program
         Raylib.CloseWindow();
     }
     
+    /// <summary>
+    ///     Handles the logic for the left mouse button, this will spawn a ball at the mouse position every 4 frames
+    /// </summary>
+    /// <param name="verlets">Set of verlets to solve and draw</param>
+    /// <param name="frameNumber">Frame index</param>
     private static void LeftMouseLogic(HashSet<Verlet> verlets, int frameNumber)
     {
         if (Raylib.IsMouseButtonDown(MouseButton.Left))
@@ -63,6 +74,12 @@ class Program
         }
     }
 
+    /// <summary>
+    ///     Handles the logic for the right mouse button, this will create an inlet of balls (faucet) that spawns a ball once every 4th frame.
+    /// </summary>
+    /// <param name="verlets">Set of verlets to solve and draw</param>
+    /// <param name="faucets">Set of existing faucets</param>
+    /// <param name="frameNumber">frame index</param>
     private static void RightMouseLogic(HashSet<Verlet> verlets, Dictionary<Vector2, Color> faucets, int frameNumber)
     {
         Random rng = new Random();
@@ -79,18 +96,26 @@ class Program
         {
             foreach (Vector2 faucet in faucets.Keys)
             {
-                Verlet verlet = new Verlet(faucet, new Vector2(0,0.5f), 4, new Color(faucets[faucet].R, frameNumber % 255, faucets[faucet].B, 255));
+                Verlet verlet = new Verlet(faucet, new Vector2(0,-4f), 3, new Color(faucets[faucet].R, frameNumber/9 % 255, faucets[faucet].B, 255));
                 verlets.Add(verlet);
             }
         }
     }
 
+    /// <summary>
+    ///     Method for solving the balls and drawing them to the screen
+    /// </summary>
+    /// <param name="solver">Solver object</param>
+    /// <param name="verlets">Set of verlets to solve and draw</param>
     private static void Solve(Solver solver, HashSet<Verlet> verlets)
     {
+        // dt is set to 1/60
         solver.Update(verlets,  0.0166f);
             
         foreach (Verlet verlet in verlets)
         {
+            //Color color = Raylib.ColorFromHSV((verlet.velocity.Length() * 90)+180, 1, 1); // Velocity coloring
+            //Raylib.DrawCircle(verlet.getX, verlet.getY, verlet.radius, color); // Draw circles by velocity
             Raylib.DrawCircle(verlet.getX, verlet.getY, verlet.radius, verlet.color);
         }
     }

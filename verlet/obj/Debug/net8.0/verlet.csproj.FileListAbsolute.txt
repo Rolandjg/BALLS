@@ -20,6 +20,7 @@
 /home/roland/RiderProjects/verlet/verlet/obj/Debug/net8.0/verlet.pdb
 /home/roland/RiderProjects/verlet/verlet/obj/Debug/net8.0/verlet.genruntimeconfig.cache
 /home/roland/RiderProjects/verlet/verlet/obj/Debug/net8.0/ref/verlet.dll
+/home/roland/RiderProjects/verlet/verlet/obj/Debug/net8.0/verlet.sourcelink.json
 /home/laptop/RiderProjects/BALL/verlet/bin/Debug/net8.0/verlet
 /home/laptop/RiderProjects/BALL/verlet/bin/Debug/net8.0/verlet.deps.json
 /home/laptop/RiderProjects/BALL/verlet/bin/Debug/net8.0/verlet.runtimeconfig.json
